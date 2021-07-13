@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', function () { 
-    return view('welcome');
-});
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','verified']], function () {
     //
 
     
@@ -38,11 +35,16 @@ Route::group(['middleware' => ['auth']], function () {
     });
     
     Route::group(['middleware' => ['role:karyawan']], function () {
-        
+        Route::get('/permohonan',function(){
+            return view('permohonan');
+        })->name('permohonan');
     });
 
 });
 
+Route::get('/', function () { 
+    return view('welcome');
+});
 
 
 Route::get('/dashboard', function () {
